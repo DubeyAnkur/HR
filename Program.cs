@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using HR.MongoDB;
+//using HR.MongoDB;
 
 namespace HR
 {
@@ -14,8 +14,15 @@ namespace HR
 
         static void Main(String[] args)
         {
-            YouTube yt = new YouTube();
-            yt.FindLink("");
+            //YouTube yt = new YouTube();
+            //yt.FindLink("");
+
+            StatsCalc sc = new StatsCalc();
+            sc.MostPurchasedSKU();
+
+            //ExcelCompare ec = new ExcelCompare();
+            ////ec.Compare();
+            //ec.FindNewContacts();
 
             //MongoTest mt = new MongoTest();
             //mt.MakeConnection();

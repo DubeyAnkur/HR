@@ -17,7 +17,7 @@ namespace HR
         public void FindLink(string URL)
         {
             URL = "https://www.youtube.com";
-            string start = "/watch?v=iZiRbJQRf6I";
+            string start = "/watch?v=Uvj827SqHak";
             downloadLocation = "E:/Downloads";
             string linkFile = @"E:\youtube.txt";
 
@@ -26,15 +26,15 @@ namespace HR
             Queue<string> K = new Queue<string>();
 
 
-            if (File.Exists(linkFile))
-            {
-                string[] lines = System.IO.File.ReadAllLines(linkFile);
-                if (lines.Length > 0)
-                {
-                    start = lines[(new Random()).Next(1, lines.Length)];
-                    links.AddRange(lines);
-                }
-            }
+            //if (File.Exists(linkFile))
+            //{
+            //    string[] lines = System.IO.File.ReadAllLines(linkFile);
+            //    if (lines.Length > 0)
+            //    {
+            //        start = lines[(new Random()).Next(1, lines.Length)];
+            //        links.AddRange(lines);
+            //    }
+            //}
             
             K.Enqueue(URL + start);
 
@@ -113,7 +113,6 @@ namespace HR
                 .Where(info => info.CanExtractAudio)
                 .OrderByDescending(info => info.AudioBitrate)
                 .First();
-
             /*
              * If the video has a decrypted signature, decipher it
              */

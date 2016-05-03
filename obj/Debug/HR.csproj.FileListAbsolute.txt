@@ -16,3 +16,16 @@ C:\Users\dankur\Documents\Visual Studio 2012\Projects\HR\HR\bin\Debug\Newtonsoft
 C:\Users\dankur\Documents\Visual Studio 2012\Projects\HR\HR\obj\Debug\HR.exe
 C:\Users\dankur\Documents\Visual Studio 2012\Projects\HR\HR\obj\Debug\HR.pdb
 C:\Users\dankur\Documents\Visual Studio 2012\Projects\HR\HR\obj\Debug\HR.csprojResolveAssemblyReference.cache
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HR.exe.config
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\obj\Debug\HR.csprojResolveAssemblyReference.cache
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HR.exe
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HR.pdb
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HtmlAgilityPack.dll
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\YoutubeExtractor.dll
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\Newtonsoft.Json.dll
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\YoutubeExtractor.pdb
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\HtmlAgilityPack.xml
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\bin\Debug\Newtonsoft.Json.xml
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\obj\Debug\HR.exe
+C:\Users\aisadmin\Documents\GitHub\GitLocal\HR\obj\Debug\HR.pdb
