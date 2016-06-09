@@ -32,26 +32,115 @@ namespace HR
                         {
                             temp = new Item();
                             temp.SKU = sku;
-                            temp.Quantity = (int)qty;
+                            temp.Quantity = Convert.ToInt32(qty);
                             ret.Add(temp);
                         }
                         else
                         {
-                            temp.Quantity += (int)qty;
+                            temp.Quantity += Convert.ToInt32(qty);
                         }
                         //Console.WriteLine(row1Col0);
                     }
                 }
             }
-            //ret.Sort();
+            ret.Sort(delegate (Item c1, Item c2) { return c2.Quantity.CompareTo(c1.Quantity);});
+            for (int i = 0; i < 30; i++)
+            {
+                Console.WriteLine(ret[i].SKU + ':' + ret[i].Quantity);
+            }
+            Console.ReadLine();
+
+        }
+        public void PurchaseTarget()
+        {
+            string FileName = @"C:\Users\aisadmin\Desktop\Stamps\wineoutlet-data\order-by-transaction\all-data-in-one-file.xls";
+            string con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";" +
+  @"Extended Properties='Excel 8.0;HDR=Yes;'";
+
+            List<Sales> ret = new List<Sales>();
+            using (OleDbConnection connection = new OleDbConnection(con))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand("select * from [Sum$]", connection);
+                using (OleDbDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        if (dr[0] != DBNull.Value)
+                        {
+                            DateTime dt = Convert.ToDateTime(dr[0]);
+                            decimal qty = Convert.ToDecimal(dr[1]);
+                            Sales itm = new Sales();
+                            itm.saleDate = dt;
+                            itm.Revenue = qty;
+                            ret.Add(itm);
+                        }
+                    }
+                }
+            }
+            var dict = ret.GroupBy(x => new { Month = x.saleDate.Month, Year = x.saleDate.Year }).ToDictionary(g => g.Key, g => g.Sum(x => x.Revenue));
+            string str = "";
+            foreach (var x in dict)
+            {
+                Console.WriteLine(x.Key);
+                Console.WriteLine(x.Value);
+                str = str + x.Key.Year + "\t" + x.Key.Month + "\t" + x.Value + Environment.NewLine;
+            }
         }
 
-        
+        public void PopularWinesByMonth()
+        {
+            string FileName = @"C:\Users\aisadmin\Desktop\Stamps\wineoutlet-data\order-by-product\all-data-in-one-file.xls";
+            string con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";" +
+  @"Extended Properties='Excel 8.0;HDR=Yes;'";
+
+            List<Item> ret = new List<Item>();
+            using (OleDbConnection connection = new OleDbConnection(con))
+            {
+                connection.Open();
+                OleDbCommand command = new OleDbCommand("select * from [Sheet3$]", connection);
+                using (OleDbDataReader dr = command.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        string sku = dr[0].ToString();
+                        var qty = dr[1];
+
+                        Item temp = ret.FirstOrDefault(i => i.SKU == sku);
+                        if (temp == null)
+                        {
+                            temp = new Item();
+                            temp.SKU = sku;
+                            temp.Quantity = Convert.ToInt32(qty);
+                            ret.Add(temp);
+                        }
+                        else
+                        {
+                            temp.Quantity += Convert.ToInt32(qty);
+                        }
+                        //Console.WriteLine(row1Col0);
+                    }
+                }
+            }
+            ret.Sort(delegate (Item c1, Item c2) { return c2.Quantity.CompareTo(c1.Quantity); });
+            for (int i = 0; i < 30; i++)
+            {
+                Console.WriteLine(ret[i].SKU + ':' + ret[i].Quantity);
+            }
+            Console.ReadLine();
+        } 
     }
+
     public class Item
     {
         public string SKU;
         public int Quantity;
         public int Cost;
+    }
+
+    public class Sales
+    {
+        public DateTime saleDate ;
+        public decimal Revenue;
     }
 }
