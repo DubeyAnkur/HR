@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http;
+//using System.Net.Http.HttpMessageInvoker
 
 namespace HR
 {
@@ -98,13 +102,13 @@ namespace HR
             using (OleDbConnection connection = new OleDbConnection(con))
             {
                 connection.Open();
-                OleDbCommand command = new OleDbCommand("select * from [Sheet3$]", connection);
+                OleDbCommand command = new OleDbCommand("select * from [June15$]", connection);
                 using (OleDbDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
                         string sku = dr[0].ToString();
-                        var qty = dr[1];
+                        var qty = dr[2];
 
                         Item temp = ret.FirstOrDefault(i => i.SKU == sku);
                         if (temp == null)
@@ -129,6 +133,72 @@ namespace HR
             }
             Console.ReadLine();
         } 
+
+        public void TryDownload()
+        {
+            string urlAddress = "http://208.72.24.81:80/sku11116.html";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
+            HttpWebResponse response;
+
+            try
+            {
+                response = request.GetResponse() as HttpWebResponse;
+            }
+            catch (WebException ex)
+            {
+                response = ex.Response as HttpWebResponse;
+            }
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+            }
+        }
+
+        public async void CURL()
+        {
+            var client = (HttpWebRequest)WebRequest.Create("http://www.wineoutlet.com/sku11110.html");
+            client.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            client.CookieContainer = new CookieContainer();
+            client.UserAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
+            var response = client.GetResponse() as HttpWebResponse;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+            }
+        }
     }
 
     public class Item

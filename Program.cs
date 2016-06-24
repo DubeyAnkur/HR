@@ -18,7 +18,7 @@ namespace HR
             //yt.FindLink("");
 
             StatsCalc sc = new StatsCalc();
-            sc.PopularWinesByMonth();
+            sc.CURL();
 
             //ExcelCompare ec = new ExcelCompare();
             ////ec.Compare();
